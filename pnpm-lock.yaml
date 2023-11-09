@@ -47,8 +47,8 @@ devDependencies:
     specifier: ^7.23.2
     version: 7.23.2(@babel/core@7.23.2)
   '@iszf-microfrontends/eslint-config':
-    specifier: ^0.0.6
-    version: 0.0.6(eslint@8.51.0)(prettier@3.0.3)(typescript@5.2.2)
+    specifier: ^0.0.7
+    version: 0.0.7(eslint@8.51.0)(prettier@3.0.3)(typescript@5.2.2)
   '@iszf-microfrontends/prettier-config':
     specifier: ^0.0.2
     version: 0.0.2
@@ -931,8 +931,8 @@ packages:
     resolution: {integrity: sha512-ZnQMnLV4e7hDlUvw8H+U8ASL02SS2Gn6+9Ac3wGGLIe7+je2AeAOxPY+izIPJDfFDb7eDjev0Us8MO1iFRN8hA==}
     dev: true
 
-  /@iszf-microfrontends/eslint-config@0.0.6(eslint@8.51.0)(prettier@3.0.3)(typescript@5.2.2):
-    resolution: {integrity: sha512-geeuC1p2QkUpfaIliaCxzJr/NGrsOb9eFmMarlzSgfiaDFHhxib1EsOLh9g9hjbtTQyae9/7d74aIaknBUQHyQ==}
+  /@iszf-microfrontends/eslint-config@0.0.7(eslint@8.51.0)(prettier@3.0.3)(typescript@5.2.2):
+    resolution: {integrity: sha512-AqdqJlOLrJ7g7JG8mmOg/hbfsQ4UyvpuJy+v9w+FNMGPrMeMzh1Hn//w0Uc3BfKRs/dGYqFFnGacAoWLxArSBA==}
     peerDependencies:
       eslint: '>= 8.0.0'
       prettier: '>= 3.0.0'

@@ -2,7 +2,7 @@
 declare module 'process' {
   global {
     namespace NodeJS {
-      interface ProcessEnv {
+      type ProcessEnv = {
         PORT?: number;
         PREVIEW_PORT?: number;
         APP_NAME?: string;
@@ -10,7 +10,7 @@ declare module 'process' {
         MCS_URL?: string;
         BACKEND_URL?: string;
         BACKEND_NAME?: string;
-      }
+      };
     }
   }
 }
