@@ -8,6 +8,7 @@ export type RequestOptions<T> = {
   path: string;
   method: 'POST' | 'GET' | 'DELETE' | 'PUT' | 'PATCH';
   body?: T;
+  params?: Record<string, any>;
   headers?: Record<string, string>;
   contentType?: ContentType;
   responseType?: ResponseType;
@@ -40,8 +41,9 @@ export const request = async <B = unknown, D = unknown>(options: RequestOptions<
     headers.delete('Content-Type');
   }
 
+  const params = options.params ? new URLSearchParams(options.params) : null;
   const body = contentIs(headers, 'application/json') ? JSON.stringify(options.body) : (options.body as any);
-  const response = await fetch(`${BACKEND_URL}/${options.path}`, {
+  const response = await fetch(`${BACKEND_URL}/${options.path}${params ? `?${params}` : ''}`, {
     method: options.method,
     body,
     headers,
