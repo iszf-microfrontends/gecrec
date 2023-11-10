@@ -23,3 +23,5 @@ export type GetResultParams = {
   send_rec: boolean;
   send_wmt: boolean;
 };
+
+export type Result = unknown;

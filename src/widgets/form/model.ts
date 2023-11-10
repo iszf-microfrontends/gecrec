@@ -1,8 +1,7 @@
 import { attach, combine, createEvent, createStore, sample } from 'effector';
-import { every, reset } from 'patronum';
+import { every, not, or, reset } from 'patronum';
 
-import { api } from '~/shared/api';
-import { type GetResultParams, type GetCenterAvailabilityParams } from '~/shared/api/types';
+import { api, type GetResultParams, type GetCenterAvailabilityParams, type Result } from '~/shared/api';
 import { errorNotified, formatDate } from '~/shared/lib';
 
 import { MIN_LONGITUDE, MAX_LONGITUDE, MIN_LATITUDE, MAX_LATITUDE } from './config';
@@ -36,14 +35,19 @@ export const needToSendWmtChanged = createEvent<boolean>();
 
 export const formSubmitted = createEvent();
 
+export const resultReceived = createEvent<Result>();
+
 export const $centers = createStore<string[]>([]);
 export const $centersPending = getCentersFx.pending;
 
 export const $center = createStore('');
 export const $centerError = createStore<string | null>(null);
+const $centerSelected = $center.map((state) => !!state);
 
 export const $minDate = createStore<Date | null>(null);
 export const $maxDate = createStore<Date | null>(null);
+export const $datePending = getCenterAvailabilityFx.pending;
+export const $dateDisabled = or($datePending, not($centerSelected));
 
 export const $dateFrom = createStore<Date | null>(null);
 export const $dateFromError = createStore<string | null>(null);
@@ -61,6 +65,8 @@ export const $geoMagnitude = createStore(GeoMagnitude.GEOGRAPHICAL);
 
 export const $needToSendRec = createStore(false);
 export const $needToSendWmt = createStore(false);
+
+export const $resultPending = getResultFx.pending;
 
 const $formValues = combine({
   center: $center,
@@ -97,7 +103,7 @@ reset({
 
 reset({
   clock: centerChanged,
-  target: [$minDate, $maxDate, $dateFrom, $dateFrom],
+  target: [$minDate, $maxDate, $dateFrom, $dateTo],
 });
 
 sample({ clock: mounted, target: [getCentersFx] });
@@ -151,6 +157,8 @@ sample({
   }),
   target: getResultFx,
 });
+
+sample({ clock: getResultFx.doneData, target: resultReceived });
 
 sample({
   clock: getCentersFx.fail,

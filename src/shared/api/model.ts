@@ -6,6 +6,7 @@ import {
   type GetResultParams,
   type GetCenterAvailabilityResponse,
   type GetCentersResponse,
+  type Result,
 } from './types';
 
 export const getCentersFx = createEffect<void, Responder<GetCentersResponse>>(async () =>
@@ -23,7 +24,7 @@ export const getCenterAvailabilityFx = createEffect<GetCenterAvailabilityParams,
   }),
 );
 
-export const getResultFx = createEffect<GetResultParams, Responder<unknown>>(async (params) =>
+export const getResultFx = createEffect<GetResultParams, Responder<Result>>(async (params) =>
   request({
     path: '',
     method: 'GET',

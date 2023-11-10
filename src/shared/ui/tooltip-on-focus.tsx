@@ -1,13 +1,13 @@
 import { Tooltip } from '@mantine/core';
 import { useState, type JSXElementConstructor } from 'react';
 
-type TooltipOnFocusProps<T extends { onFocus?: (e: any) => void; onBlur?: (e: any) => void }> = {
-  Component: JSXElementConstructor<T>;
+export type TooltipOnFocusProps<T extends { onFocus?: (e: any) => void; onBlur?: (e: any) => void }> = {
+  component: JSXElementConstructor<T>;
   tooltip: string;
 } & T;
 
 export const TooltipOnFocus = <T extends { onFocus?: (e: any) => void; onBlur?: (e: any) => void }>({
-  Component,
+  component: Component,
   tooltip,
   ...props
 }: TooltipOnFocusProps<T>): JSX.Element => {
