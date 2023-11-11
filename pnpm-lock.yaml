@@ -26,6 +26,9 @@ dependencies:
   effector:
     specifier: ^22.8.7
     version: 22.8.7
+  effector-factorio:
+    specifier: ^1.1.0
+    version: 1.1.0(effector@22.8.7)(react@18.2.0)
   effector-react:
     specifier: ^22.5.4
     version: 22.5.4(effector@22.8.7)(react@18.2.0)
@@ -3234,6 +3237,21 @@ packages:
 
   /ee-first@1.1.1:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
+
+  /effector-factorio@1.1.0(effector@22.8.7)(react@18.2.0):
+    resolution: {integrity: sha512-yTkxvYSGCdzpmYR6AR/0yQHN7PJ3TXKK/XYYdLvWslVEmaZEp8mhrvRalSX3tnycVsZpdgvr7VIM7yFWL2v9fQ==}
+    engines: {node: '>=10'}
+    peerDependencies:
+      effector: ^22
+      react: '>=16.14.0'
+      solid-js: ~1.4.8
+    peerDependenciesMeta:
+      solid-js:
+        optional: true
+    dependencies:
+      effector: 22.8.7
+      react: 18.2.0
+    dev: false
 
   /effector-react@22.5.4(effector@22.8.7)(react@18.2.0):
     resolution: {integrity: sha512-7HmtfD/vqmqvGnu6jMojmns9cxIW45JPBkGgHrwvbXGpbm0bz2fmVj6PIttv+Bamfmrf9FAy2bZhs+Rwj+3Mxw==}

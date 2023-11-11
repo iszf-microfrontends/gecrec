@@ -9,25 +9,27 @@ import {
   type Result,
 } from './types';
 
-export const getCentersFx = createEffect<void, Responder<GetCentersResponse>>(async () =>
-  request({
-    path: 'centers',
-    method: 'GET',
-  }),
-);
+export const api = {
+  getCentersFx: createEffect<void, Responder<GetCentersResponse>>(async () =>
+    request({
+      path: 'centers',
+      method: 'GET',
+    }),
+  ),
+  getCenterAvailabilityFx: createEffect<GetCenterAvailabilityParams, Responder<GetCenterAvailabilityResponse>>(async (params) =>
+    request({
+      path: 'availability',
+      method: 'GET',
+      params,
+    }),
+  ),
+  getResultFx: createEffect<GetResultParams, Responder<Result>>(async (params) =>
+    request({
+      path: '',
+      method: 'GET',
+      params,
+    }),
+  ),
+};
 
-export const getCenterAvailabilityFx = createEffect<GetCenterAvailabilityParams, Responder<GetCenterAvailabilityResponse>>(async (params) =>
-  request({
-    path: 'availability',
-    method: 'GET',
-    params,
-  }),
-);
-
-export const getResultFx = createEffect<GetResultParams, Responder<Result>>(async (params) =>
-  request({
-    path: '',
-    method: 'GET',
-    params,
-  }),
-);
+export type Api = typeof api;

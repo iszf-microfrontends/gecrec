@@ -1,14 +1,16 @@
 import { Button } from '@iszf-microfrontends/shared-ui';
 import { Box, Checkbox, Grid, Group, Loader, NumberInput, Radio, Select, Stack } from '@mantine/core';
+import { modelView } from 'effector-factorio';
 import { useUnit } from 'effector-react';
 import { useEffect } from 'react';
 
 import { DateInput, TooltipOnFocus } from '~/shared/ui';
 
 import { MAX_LATITUDE, MAX_LONGITUDE, MIN_LATITUDE, MIN_LONGITUDE } from './config';
-import * as model from './model';
+import { formFactory, GeoMagnitude as GeoMagnitudeEnum } from './model';
 
 const Center = (): JSX.Element => {
+  const model = formFactory.useModel();
   const [centers, centersPending, center, centerError] = useUnit([
     model.$centers,
     model.$centersPending,
@@ -34,6 +36,7 @@ const Center = (): JSX.Element => {
 };
 
 const DateRange = (): JSX.Element => {
+  const model = formFactory.useModel();
   const states = useUnit({
     minDate: model.$minDate,
     maxDate: model.$maxDate,
@@ -86,6 +89,7 @@ const DateRange = (): JSX.Element => {
 };
 
 const Latitude = (): JSX.Element => {
+  const model = formFactory.useModel();
   const [minLatitude, maxLatitude] = useUnit([model.$minLatitude, model.$maxLatitude]);
 
   return (
@@ -123,6 +127,7 @@ const Latitude = (): JSX.Element => {
 };
 
 const Longitude = (): JSX.Element => {
+  const model = formFactory.useModel();
   const [minLongitude, maxLongitude] = useUnit([model.$minLongitude, model.$maxLongitude]);
 
   return (
@@ -160,19 +165,21 @@ const Longitude = (): JSX.Element => {
 };
 
 const GeoMagnitude = (): JSX.Element => {
+  const model = formFactory.useModel();
   const [geoMagnitude] = useUnit([model.$geoMagnitude]);
 
   return (
     <Radio.Group label="Тип координат" value={geoMagnitude} onChange={model.geoMagnitudeChanged}>
       <Group mt={4}>
-        <Radio label="Географические" value={model.GeoMagnitude.GEOGRAPHICAL} />
-        <Radio label="Геомагнитные" value={model.GeoMagnitude.GEOMAGNETIC} />
+        <Radio label="Географические" value={GeoMagnitudeEnum.GEOGRAPHICAL} />
+        <Radio label="Геомагнитные" value={GeoMagnitudeEnum.GEOMAGNETIC} />
       </Group>
     </Radio.Group>
   );
 };
 
 const NeedToSendRec = (): JSX.Element => {
+  const model = formFactory.useModel();
   const [needToSendRec] = useUnit([model.$needToSendRec]);
 
   return (
@@ -187,6 +194,7 @@ const NeedToSendRec = (): JSX.Element => {
 };
 
 const NeedToSendWmt = (): JSX.Element => {
+  const model = formFactory.useModel();
   const [needToSendWmt] = useUnit([model.$needToSendWmt]);
 
   return (
@@ -200,12 +208,15 @@ const NeedToSendWmt = (): JSX.Element => {
   );
 };
 
-export const Form = (): JSX.Element => {
-  const [resultPending] = useUnit([model.$resultPending]);
+export const Form = modelView(formFactory, () => {
+  const model = formFactory.useModel();
+  const states = useUnit({
+    resultPending: model.$resultPending,
+  });
 
   useEffect(() => {
     model.mounted();
-  }, []);
+  }, [model]);
 
   return (
     <Box
@@ -239,11 +250,11 @@ export const Form = (): JSX.Element => {
           </Stack>
         </Grid.Col>
         <Grid.Col>
-          <Button type="submit" loading={resultPending}>
+          <Button type="submit" loading={states.resultPending}>
             Получить результаты
           </Button>
         </Grid.Col>
       </Grid>
     </Box>
   );
-};
+});
